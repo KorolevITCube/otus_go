@@ -54,7 +54,7 @@ linters:
             - '!$test'
           allow:
             - $gostd
-            - github.com/stretchr/testify
+            - github.com/stretchr/testify/...
         Test:
           files:
             - $test
