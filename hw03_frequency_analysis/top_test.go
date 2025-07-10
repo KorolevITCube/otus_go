@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+//nolint:funlen // because its test
 func TestTop10(t *testing.T) {
 	tests := []struct {
 		name string
