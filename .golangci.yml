@@ -54,11 +54,11 @@ linters:
             - '!$test'
           allow:
             - $gostd
+            - github.com/stretchr/testify
         Test:
           files:
             - $test
           allow:
-            - github.com/KorolevITCube/...
             - $gostd
             - github.com/stretchr/testify
     funlen:

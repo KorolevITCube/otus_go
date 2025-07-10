@@ -1,9 +1,8 @@
-package hw03frequencyanalysis_test
+package hw03frequencyanalysis
 
 import (
 	"testing"
 
-	hw03frequencyanalysis "github.com/KorolevITCube/hw03_frequency_analysis"
 	"github.com/stretchr/testify/require"
 )
 
@@ -92,7 +91,7 @@ func TestTop10(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			gotResult := hw03frequencyanalysis.Top10(tc.text)
+			gotResult := Top10(tc.text)
 			require.Equal(t, tc.want, gotResult)
 		})
 	}
