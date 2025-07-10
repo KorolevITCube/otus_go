@@ -7,7 +7,6 @@ import (
 )
 
 func TestTop10(t *testing.T) {
-
 	tests := []struct {
 		name string
 		text string
@@ -91,7 +90,6 @@ func TestTop10(t *testing.T) {
 	}
 
 	for _, tc := range tests {
-		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			gotResult := Top10(tc.text)
 			require.Equal(t, tc.want, gotResult)
