@@ -17,7 +17,7 @@ type lruCache struct {
 	mutex    sync.RWMutex
 }
 
-// введена, чтобы можно было адерсоваться на ключи мапы, вместо перебора при удалении
+// введена, чтобы можно было адерсоваться на ключи мапы, вместо перебора при удалении.
 type listElement struct {
 	key   Key
 	value any
@@ -37,7 +37,7 @@ func (c *lruCache) Set(key Key, value interface{}) bool {
 	if c.queue.Len() >= c.capacity {
 		last := c.queue.Back().Value.(listElement)
 		c.queue.Remove(c.queue.Back())
-		delete(c.items, Key(last.key))
+		delete(c.items, last.key)
 	}
 	temp := c.queue.PushFront(listElement{
 		key:   key,

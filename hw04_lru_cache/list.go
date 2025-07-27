@@ -76,7 +76,7 @@ func (l *list) Remove(i *ListItem) {
 
 func (l *list) MoveToFront(i *ListItem) {
 	if l.first != i && l.first != nil {
-		// удаляем из текущего места
+		// удаляем из текущего места.
 		if i.Prev != nil {
 			i.Prev.Next = i.Next
 		}
@@ -86,10 +86,10 @@ func (l *list) MoveToFront(i *ListItem) {
 		if l.last == i {
 			l.last = i.Prev
 		}
-		// обновляем ссылки
+		// обновляем ссылки.
 		i.Prev = nil
 		i.Next = l.first
-		// ставим в начало
+		// ставим в начало.
 		l.first.Prev = i
 		l.first = i
 	}
