@@ -1,12 +1,13 @@
 package executor
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
 	"strings"
 
-	"github.com/KorolevITCube/otus_go/hw08_envdir_tool/env"
+	"github.com/KorolevITCube/otus_go/hw08_envdir_tool/env" //nolint:all
 )
 
 // RunCmd runs a command + arguments (cmd) with environment variables from env.
@@ -17,20 +18,20 @@ func RunCmd(commands []string, env env.Environment) (returnCode int) {
 	}
 	var cmd *exec.Cmd
 	if len(commands) == 1 {
-		cmd = exec.Command(commands[0])
+		cmd = exec.Command(commands[0]) //nolint:gosec // по заданию подразумевает запуск всего
 	} else {
-		cmd = exec.Command(commands[0], commands[1:]...)
+		cmd = exec.Command(commands[0], commands[1:]...) //nolint:gosec // по заданию подразумевает запуск всего
 	}
 	cmd.Env = generateEnvs(os.Environ(), env)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
-		if exitErr, ok := err.(*exec.ExitError); ok {
+		var exitErr *exec.ExitError
+		if errors.As(err, &exitErr) {
 			return exitErr.ExitCode()
-		} else {
-			fmt.Fprintln(os.Stderr, err.Error())
-			return -1
 		}
+		fmt.Fprintln(os.Stderr, err.Error())
+		return -1
 	}
 	return 0
 }
@@ -50,7 +51,7 @@ func generateEnvs(rootEnvs []string, localEnvs env.Environment) []string {
 		}
 	}
 
-	var res []string
+	res := make([]string, 0, len(temp))
 	for k, v := range temp {
 		res = append(res, fmt.Sprintf("%s=%s", k, v))
 	}
